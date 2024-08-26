@@ -7,6 +7,7 @@ if (process.env.NODE_ENV !== "prod") {
   dotEnv.config();
 }
 
+//Updated the binding key
 module.exports = {
   PORT: process.env.PORT,
   DB_URL: process.env.MONGODB_URI,
