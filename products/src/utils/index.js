@@ -95,3 +95,8 @@ module.exports.PublishMessage = (channel, service, msg) => {
   channel.publish(EXCHANGE_NAME, service, Buffer.from(msg));
   console.log("Sent: ", msg);
 };
+
+
+// module.exports.SubscribeMessage = (channel, service, bingding_key) => {
+//   // appQueue = await channel.assertQueue(Que)
+// }

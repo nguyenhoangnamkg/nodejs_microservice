@@ -1,11 +1,11 @@
-const bcrypt = require("bcrypt");
+const bcrypt = require("bcryptjs");
 const jwt = require("jsonwebtoken");
 const amqplib = require("amqplib");
 
 const {
   APP_SECRET,
   EXCHANGE_NAME,
-  CUSTOMER_SERVICE,
+  CUSTOMER_BINDING_KEY,
   MSG_QUEUE_URL,
 } = require("../config");
 
@@ -75,10 +75,10 @@ module.exports.PublishMessage = (channel, service, msg) => {
 
 module.exports.SubscribeMessage = async (channel, service) => {
   await channel.assertExchange(EXCHANGE_NAME, "direct", { durable: true });
-  const q = await channel.assertQueue("", { exclusive: true });
+  const q = await channel.assertQueue("CUSTOMER_QUEUE", { exclusive: false });
   console.log(` Waiting for messages in queue: ${q.queue}`);
 
-  channel.bindQueue(q.queue, EXCHANGE_NAME, CUSTOMER_SERVICE);
+  channel.bindQueue(q.queue, EXCHANGE_NAME, CUSTOMER_BINDING_KEY);
 
   channel.consume(
     q.queue,
