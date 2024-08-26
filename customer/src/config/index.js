@@ -8,6 +8,8 @@ if (process.env.NODE_ENV !== "prod") {
 }
 
 //Updated the binding key, the last two key-value pairs
+//Change 1
+//Change 2
 module.exports = {
   PORT: process.env.PORT,
   DB_URL: process.env.MONGODB_URI,
