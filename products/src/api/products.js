@@ -1,4 +1,4 @@
-const { CUSTOMER_SERVICE, SHOPPING_SERVICE } = require("../config");
+const { CUSTOMER_BINDING_KEY, SHOPPING_BINDING_KEY } = require("../config");
 const ProductService = require("../services/product-service");
 const {
   PublishCustomerEvent,
@@ -65,7 +65,7 @@ module.exports = (app, channel) => {
     );
 
     // PublishCustomerEvent(data);
-    PublishMessage(channel, CUSTOMER_SERVICE, JSON.stringify(data));
+    PublishMessage(channel, CUSTOMER_BINDING_KEY, JSON.stringify(data));
 
     res.status(200).json(data.data.product);
   });
@@ -80,7 +80,7 @@ module.exports = (app, channel) => {
       "REMOVE_FROM_WISHLIST"
     );
     // PublishCustomerEvent(data);
-    PublishMessage(channel, CUSTOMER_SERVICE, JSON.stringify(data));
+    PublishMessage(channel, CUSTOMER_BINDING_KEY, JSON.stringify(data));
 
     res.status(200).json(data.data.product);
   });
@@ -94,11 +94,14 @@ module.exports = (app, channel) => {
       "ADD_TO_CART"
     );
 
+    console.log('Add to Cart')
+    console.log(data)
+
     // PublishCustomerEvent(data);
     // PublishShoppingEvent(data);
 
-    PublishMessage(channel, CUSTOMER_SERVICE, JSON.stringify(data));
-    PublishMessage(channel, SHOPPING_SERVICE, JSON.stringify(data));
+    PublishMessage(channel, CUSTOMER_BINDING_KEY, JSON.stringify(data));
+    PublishMessage(channel, SHOPPING_BINDING_KEY, JSON.stringify(data));
 
     const response = { product: data.data.product, unit: data.data.qty };
 
@@ -118,8 +121,8 @@ module.exports = (app, channel) => {
     // PublishCustomerEvent(data);
     // PublishShoppingEvent(data);
 
-    PublishMessage(channel, CUSTOMER_SERVICE, JSON.stringify(data));
-    PublishMessage(channel, SHOPPING_SERVICE, JSON.stringify(data));
+    PublishMessage(channel, CUSTOMER_BINDING_KEY, JSON.stringify(data));
+    PublishMessage(channel, SHOPPING_BINDING_KEY, JSON.stringify(data));
 
     const response = { product: data.data.product, unit: data.data.qty };
 
